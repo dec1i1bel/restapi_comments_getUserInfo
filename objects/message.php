@@ -1,6 +1,6 @@
 <?php
 class Message {
-  private $dbconn;
+  private $dbConn;
   private $dbtable = 'comments';
   
   public $id;
@@ -9,8 +9,8 @@ class Message {
   public $message;
   public $userId;
   
-  public function __construct($dbconn) {
-    $this->dbconn = $dbconn;
+  public function __construct($dbConn) {
+    $this->dbConn = $dbConn;
   }
   
   public function read() {
@@ -30,7 +30,7 @@ class Message {
       order by
         com.publicationDate desc
     ';
-    $exec = $this->conn->prepare($sql);
+    $exec = $this->dbConn->prepare($sql);
     $exec->execute();
     
     return $exec;
