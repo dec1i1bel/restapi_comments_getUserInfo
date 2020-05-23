@@ -8,12 +8,13 @@ class ConnectDb {
   public function getConnection() {
     $this->conn = null;
     
+    
     try {
-      $this->conn = new PDO($dsn, $username, $password);
+      $this->conn = new PDO($this->dsn, $this->username, $this->password);
     } catch(PDOException $ex) {
       echo 'Connection error: '.$ex->getMessage();
     }
+    
+    return $this->conn;
   }
-  return $this->conn;
 }
-?>
