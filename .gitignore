@@ -1,2 +1,3 @@
 *.txt
 .vscode
+app/img/*
