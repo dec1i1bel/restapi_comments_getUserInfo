@@ -1,5 +1,5 @@
 <?php
-include '../api/message/read.php';
+include '../api/comments/read.php';
 $arr = json_decode($arrMessages);
 ?>
 <pre>

@@ -3,12 +3,12 @@
 header('Content-Type: application/json; charset=UTF-8');
 
 include '../api/config/db.php';
-include '../api/objects/message.php';
+include '../api/objects/comment.php';
 
-$connectDb = new ConnectDb();
+$connectDb = new Db();
 $dbConn = $connectDb->getConnection();
 
-$message = new Message($dbConn);
+$message = new Comment($dbConn);
 $messages = $message->read();
 $mess_num = 1;
 
@@ -20,12 +20,7 @@ if($mess_num>0) {
       'c_message' => $c_message,
       'c_publicationDate' => $c_publicationDate,
       'c_status' => $c_status,
-      'user_id' => $user_id,
-      'user_name' => $user_name,
-      'user_birthdate' => $user_birthdate,
-      'user_city' => $user_city,
-      'user_phone' => $user_phone,
-      'user_photo' => $user_photo
+      'user_name' => $user_name
     );
     array_push($arrMessages, $message_item);
   }
