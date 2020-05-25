@@ -26,3 +26,13 @@
 -- describe users
 -- insert into users (name,birthdate,city,phone,photo)
 -- values ('иванов иван иванович','1990-07-29','Владивосток','+7(123) 456-78-90', 'img/user.jpg');
+-- update comments
+-- set
+--   message = 'Sed русский ut perspiciatis текст unde omnis iste natus error'
+-- WHERE
+--   id = 1
+-- select * from comments
+select * from users
+-- describe users
+-- alter table comments
+-- modify message text
