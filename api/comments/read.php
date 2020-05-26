@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: application/json; charset=UTF-8');
+// header('Content-Type: application/json; charset=UTF-8');
 
 include '../api/objects/comment.php';
 
