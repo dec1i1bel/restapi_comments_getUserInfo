@@ -1,9 +1,13 @@
 <?php
-class User {
-  private $dbconn = null;
+// include 'base.php';
+class User extends Base {
+  // private $dbconn = null;
   private $dbtable = 'users';
 
-  public function __construct($dbconn) {
-    
+  public function read() {
+    $sql = 'select * from users';
+    $exec = $this->dbconn->prepare($sql);
+    $exec->execute();
+    return $exec;
   }
 }

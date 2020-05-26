@@ -32,7 +32,7 @@
 -- WHERE
 --   id = 1
 -- select * from comments
-select * from users
--- describe users
+-- select * from users
+describe users
 -- alter table comments
 -- modify message text
