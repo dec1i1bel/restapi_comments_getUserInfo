@@ -1,8 +1,5 @@
 <?php
-include '../api/config/db.php';
-include '../api/config/base.php';
-include '../api/comments/read.php';
-include '../api/users/read.php';
+include '../api/loader.php';
 
 $arrComments = json_decode($arrComments);
 $arrUsers = json_decode($arrUsers);

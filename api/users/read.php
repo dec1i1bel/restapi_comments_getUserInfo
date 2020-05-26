@@ -1,7 +1,6 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
 
-// include '../api/config/db.php';
 include '../api/objects/user.php';
 
 $dbUsers = new Db();

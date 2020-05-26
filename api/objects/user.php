@@ -1,7 +1,5 @@
 <?php
-// include 'base.php';
 class User extends Base {
-  // private $dbconn = null;
   private $dbtable = 'users';
 
   public function read() {
