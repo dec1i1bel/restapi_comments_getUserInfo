@@ -21,13 +21,7 @@ class Comment extends Base{
     return $exec;
   }
   
-  public function update($comment_id, $strStatus_id) {
-    if($strStatus_id == 'published') {
-      $srtStatus = 'опубликовано';
-    } else {
-      $strStatus = 'не опубликовано';
-    }
-
+  public function update($comment_id, $strStatus, $strStatus_id) {
     $sql = 'update table
               set
                 status = :strStatus,

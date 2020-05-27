@@ -69,11 +69,11 @@ include '../api/users/read.php';
                 $.ajax({
                   url: 'change-status.php',
                   method: 'post',
-                  data: 'comment_id=<?php echo $k ?>',
+                  data: 'comment_id=<?php echo $k ?>&strStatus_id=<?php echo $comment->status_id ?>',
                   cache: false,
-                  success: function(arrText, comment_id) {
-                    $('#user-comment_status-'+comment_id).text(arrText[0]);
-                    $('#comment-'+comment_id+'_status-button-text').text(arrText[1]);
+                  success: function(arrAnswer) {
+                    $('#user-comment_status-'+comment_id).text(arrAnswer[0]);
+                    $('#comment-'+comment_id+'_status-button-text').text(arrAnswer[1]);
                   }
                 });
               })

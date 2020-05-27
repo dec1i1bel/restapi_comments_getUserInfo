@@ -18,13 +18,10 @@ if($commentsCount>0) {
       'publicationDate' => $c_publicationDate,
       'status' => $c_status,
       'status_id' => $c_status_id
-      // 'user_name' => $user_name
     );
     array_push($arrComments, $commentSingle);
   }
-  http_response_code(200);
   $arrComments = json_encode($arrComments);
 } else {
-  http_response_code(404);
   echo json_encode(array('comment' => 'У пользователя нет сообщений'));
 }
