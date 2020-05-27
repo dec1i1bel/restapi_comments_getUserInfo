@@ -20,4 +20,27 @@ class Comment extends Base{
     $exec->execute();
     return $exec;
   }
+  
+  public function update($comment_id, $strStatus_id) {
+    if($strStatus_id == 'published') {
+      $srtStatus = 'опубликовано';
+    } else {
+      $strStatus = 'не опубликовано';
+    }
+
+    $sql = 'update table
+              set
+                status = :strStatus,
+                status_id = :strStatus_id,
+              where
+                id = :comment_id';
+    $exec = $this->dbconn->prepare($sql);
+    $exec->bindValue(':strStatus', $strStatus, PDO::PARAM_STR);
+    $exec->bindValue(':strStatus_id', $strStatus_id, PDO::PARAM_STR);
+    $exec->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
+  }
+
+  public function delete() {
+
+  }
 }
