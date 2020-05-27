@@ -44,10 +44,34 @@ include '../api/loader.php';
       </div>
       <h2>Сообщения</h2>
       <?php
+      foreach($arrComments as $comment) {
+        ?>
+        <div class="card border-primary mb-3">
+          <div class="card-header bg-transparent border-primary">
+            <p class="card-text"><?php echo $comment->status ?></p>
+          </div>
+          <div class="card-body">
+          <p class="card-text"><?php echo $comment->message ?></p>
+          </div>
+          <div class="card-footer bg-transparent border-success">
+            Дата публикации:
+            <?php
+            if($comment->status_id == 'published') {
+              echo $comment->publicationDate;
+            } else {
+              echo 'нет';
+            }
+            ?>
+          </div>
+        </div>
+        <?php
+      }
+      ?>
+      <!-- <?php
       echo '<pre>';
       print_r($arrComments);
       echo '</pre>';
-      ?>
+      ?> -->
     </div>
   </div>
 </body>

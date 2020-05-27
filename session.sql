@@ -1,38 +1,12 @@
--- create table comments (
---   id int(10) auto_increment,
---   status varchar(20),
---   publicationDate date,
---   message varchar(1000),
---   userId int(10),
---   primary key (id)
--- )
--- show tables
+-- insert into comments (status_id) values ('published')
 -- select * from comments
--- describe comments
--- describe users
--- create table users (
---   id int(10) not null auto_increment,
---   name varchar(50),
---   birthdate date,
---   city varchar(20),
---   phone varchar(20),
---   photo varchar(50),
---   primary key (id)
--- )
--- describe comments
--- insert into comments (status, publicationDate, message, userId)
--- values ('опубликовано', '2020-05-20', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', 1)
--- select * from users
--- describe users
--- insert into users (name,birthdate,city,phone,photo)
--- values ('иванов иван иванович','1990-07-29','Владивосток','+7(123) 456-78-90', 'img/user.jpg');
 -- update comments
 -- set
---   message = 'Sed русский ut perspiciatis текст unde omnis iste natus error'
--- WHERE
+--   status_id = 'published'
+-- where
 --   id = 1
--- select * from comments
--- select * from users
-describe users
+-- delete from comments
+-- where id = 2
 -- alter table comments
--- modify message text
+-- modify column status_id varchar(20) not null
+describe comments

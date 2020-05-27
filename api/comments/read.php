@@ -1,6 +1,4 @@
 <?php
-// header('Content-Type: application/json; charset=UTF-8');
-
 include '../api/objects/comment.php';
 
 $dbComments = new Db();
@@ -16,10 +14,11 @@ if($commentsCount>0) {
   while($row = $comments->fetch()) {
     extract($row);
     $commentSingle = array(
-      'c_message' => $c_message,
-      'c_publicationDate' => $c_publicationDate,
-      'c_status' => $c_status,
-      'user_name' => $user_name
+      'message' => $c_message,
+      'publicationDate' => $c_publicationDate,
+      'status' => $c_status,
+      'status_id' => $c_status_id
+      // 'user_name' => $user_name
     );
     array_push($arrComments, $commentSingle);
   }
