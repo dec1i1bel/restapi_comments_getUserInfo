@@ -26,7 +26,8 @@ extract($statusData);
 
 $arrStatus = array(
   'status' => $status,
-  'status_id' => $status_id
+  'status_id' => $status_id,
+  'publicationDate' => $publicationDate
 );
 $arrStatus = json_encode($arrStatus);
 ?>

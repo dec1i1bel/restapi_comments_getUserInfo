@@ -49,11 +49,11 @@
         $k++;
         $k = strVal($k);
         ?>
-        <div id='user-account_comment-<?php echo $k ?>' class="card border-primary mb-3">
-          <div class="card-header bg-transparent border-primary">
-            <span id='user-comment_status-<?php echo $k ?>' class="card-text"><?php echo $comment->status ?></span>
+        <div id='user-account_comment-<?php echo $comment->id ?>' class="card mb-3">
+          <div class="card-header bg-transparent">
+            <span id='user-comment_status-<?php echo $comment->id ?>' class="card-text"><?php echo $comment->status ?></span>
 
-            <button id='comment-<?php echo $k ?>_button' name ='comment-<?php echo $k ?>_button' type="button" class="btn-change-status btn btn-primary"><span id='comment-<?php echo $k ?>_status-button-text'>
+            <button id='comment-<?php echo $comment->id ?>_button' name ='comment-<?php echo $comment->id ?>_button' type="button" class="btn-change-status btn btn-primary"><span id='comment-<?php echo $comment->id ?>_status-button-text'>
               <?php
                 if($comment->status_id == 'published') {
                   echo 'отменить публикацию';
@@ -63,20 +63,37 @@
               ?>
             </span>
             </button>
-            <button class="btn btn-outline-primary" type="button" id='comment-<?php echo $k ?>_button-remove_comment' name ='comment-<?php echo $k ?>_button-remove_comment'>Удалить</button>
-            <script>
+            <button class="btn btn-outline-primary" type="button" id='comment-<?php echo $k ?>_button-remove_comment' name ='comment-<?php echo $comment->id ?>_button-remove_comment'>Удалить</button>
+            </div>
+          <div class="card-body">
+          <p class="card-text"><?php echo $comment->message ?></p>
+          </div>
+          <div class="card-footer bg-transparent">
+            Дата публикации:
+            <span id='comment-<?php echo $comment->id ?>_publication-date'>
+            <?php
+            if($comment->status_id == 'published') {
+              echo $comment->publicationDate;
+            } else {
+              echo 'нет';
+            }
+            ?>
+            </span>
+          </div>
+          <script>
               $(document).ready(function() {
                 function req_update() {
                   $.ajax({
                     url: 'change-status.php',
                     method: 'post',
-                    data: 'comment_id=<?php echo $k ?>&status_id=<?php echo $comment->status_id ?>&status=<?php echo $comment->status ?>',
+                    data: 'comment_id=<?php echo $comment->id ?>&status_id=<?php echo $comment->status_id ?>&status=<?php echo $comment->status ?>',
                     cache: false,
                     success: function(strAnswer) {
                       let arrAnswer = strAnswer.split('|');
                       
-                      $('#user-comment_status-<?php echo $k ?>').text(arrAnswer[0]);
-                      $('#comment-<?php echo $k ?>_status-button-text').text(arrAnswer[1]);
+                      $('#user-comment_status-<?php echo $comment->id ?>').text(arrAnswer[0]);
+                      $('#comment-<?php echo $comment->id ?>_status-button-text').text(arrAnswer[1]);
+                      $('#comment-<?php echo $comment->id ?>_publication-date').text(arrAnswer[2]);
                     }
                   });
                 }
@@ -85,42 +102,30 @@
                   $.ajax({
                     url: 'remove-post.php',
                     method: 'post',
-                    data: 'comment_id=<?php echo $k ?>',
+                    data: 'comment_id=<?php echo $comment->id ?>',
                     cache: false,
                     success: function() {
-                      $('#user-account_comment-<?php echo $k ?>').remove();
+                      $('#user-account_comment-<?php echo $comment->id ?>').remove();
                     }
                   })
                 }
 
-                $('#comment-<?php echo $k ?>_button').on('click', function() {
+                $('#comment-<?php echo $comment->id ?>_button').on('click', function() {
                   req_update();
                 })
 
-                $('#comment-<?php echo $k ?>_button-remove_comment').on('click', function() {
+                $('#comment-<?php echo $comment->id ?>_button-remove_comment').on('click', function() {
                   req_remove();
                 })
                 
               })
             </script>
-
-          <div class="card-body">
-          <p class="card-text"><?php echo $comment->message ?></p>
-          </div>
-          <div class="card-footer bg-transparent border-success">
-            Дата публикации:
-            <?php
-            if($comment->status_id == 'published') {
-              echo $comment->publicationDate;
-            } else {
-              echo 'нет';
-            }
-            ?>
-          </div>
+        </div>
         </div>
         <?php
       }
       ?>
+      </div>
       </div>
     </div>
   </div>

@@ -13,9 +13,11 @@ $arrStatus = json_decode($arrStatus);
 
 if($arrStatus->status_id == 'published') {
   $buttonText = 'отменить публикацию';
+  $pubDate = $arrStatus->publicationDate;
 } else {
   $buttonText = 'опубликовать';
+  $pubDate = 'нет';
 };
 
-echo $arrStatus->status.'|'.$buttonText;
+echo $arrStatus->status.'|'.$buttonText.'|'.$pubDate;
 ?>

@@ -14,6 +14,7 @@ if($commentsCount>0) {
   while($row = $comments->fetch()) {
     extract($row);
     $commentSingle = array(
+      'id' => $c_id,
       'message' => $c_message,
       'publicationDate' => $c_publicationDate,
       'status' => $c_status,

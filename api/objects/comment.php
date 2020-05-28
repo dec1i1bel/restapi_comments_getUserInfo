@@ -33,7 +33,7 @@ class Comment extends Base{
   }
 
   public function readUpdatedStatus($comment_id) {
-    $sql = 'select status, status_id from comments where id = :comment_id';
+    $sql = 'select status, status_id, publicationDate from comments where id = :comment_id';
     $ex = $this->dbconn->prepare($sql);
     $ex->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
     $ex->execute();
