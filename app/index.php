@@ -71,7 +71,9 @@ include '../api/users/read.php';
                   method: 'post',
                   data: 'comment_id=<?php echo $k ?>&strStatus_id=<?php echo $comment->status_id ?>',
                   cache: false,
-                  success: function(arrAnswer) {
+                  success: function(strAnswer) {
+                    let arrAnswer = strAnswer.split('|');
+                    
                     $('#user-comment_status-'+comment_id).text(arrAnswer[0]);
                     $('#comment-'+comment_id+'_status-button-text').text(arrAnswer[1]);
                   }
