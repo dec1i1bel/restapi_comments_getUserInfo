@@ -6,6 +6,9 @@ $arrUpd = json_decode($arrUpd);
 if($arrUpd->status_id == 'published') {
   $status_id = 'unpublished';
   $status = 'не опубликовано';
+} else {
+  $status_id = 'published';
+  $status = 'опубликовано';
 }
 
 $updAction_dbComments = new Db();

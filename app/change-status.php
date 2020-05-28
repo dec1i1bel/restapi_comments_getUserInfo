@@ -17,5 +17,5 @@ if($arrStatus->status_id == 'published') {
   $buttonText = 'опубликовать';
 };
 
-echo ''+$status+'|'+$buttonText+'';
+echo $arrStatus->status.'|'.$buttonText;
 ?>

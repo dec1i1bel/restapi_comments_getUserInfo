@@ -55,13 +55,14 @@
             <span id='user-comment_status-<?php echo $k ?>' class="card-text"><?php echo $comment->status ?>
             </span>
 
-            <input id='comment-<?php echo $k ?>_button' name ='comment-<?php echo $k ?>_button' type="button" class="btn-change-status btn btn-primary" value='<?php
+            <button id='comment-<?php echo $k ?>_button' name ='comment-<?php echo $k ?>_button' type="button" class="btn-change-status btn btn-primary"><span id='comment-<?php echo $k ?>_status-button-text'><?php
                 if($comment->status_id == 'published') {
                   echo 'отменить публикацию';
                 } else {
                   echo 'опубликовать';
                 }
-            ?>'>
+            ?></span>
+            </button>
             <script>
               $('#comment-<?php echo $k ?>_button').on('click', function() {
                 $.ajax({
@@ -72,8 +73,8 @@
                   success: function(strAnswer) {
                     let arrAnswer = strAnswer.split('|');
                     
-                    $('#user-comment_status-'+comment_id).text(arrAnswer[0]);
-                    $('#comment-'+comment_id+'_status-button-text').text(arrAnswer[1]);
+                    $('#user-comment_status-<?php echo $k ?>').text(arrAnswer[0]);
+                    $('#comment-<?php echo $k ?>_status-button-text').text(arrAnswer[1]);
                   }
                 });
               })
