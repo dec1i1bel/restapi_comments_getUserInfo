@@ -24,8 +24,6 @@ class Comment extends Base{
   public function update($comment_id, $status, $status_id) {
     $sql = 'update comments set status = "'.$status.'", status_id="'.$status_id.'" where id = :comment_id';
     $exec = $this->dbconn->prepare($sql);
-    // $exec->bindValue(':status', $status, PDO::PARAM_STR);
-    // $exec->bindValue(':status_id', $status_id, PDO::PARAM_STR);
     $exec->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
     $exec->execute();
 
@@ -38,6 +36,15 @@ class Comment extends Base{
     $ex->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
     $ex->execute();
 
+    return $ex;
+  }
+  
+  public function delete($comment_id) {
+    $sql = 'delete from comments where id = :comment_id';
+    $ex = $this->dbconn->prepare($sql);
+    $ex->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
+    $ex->execute();
+    
     return $ex;
   }
 }
