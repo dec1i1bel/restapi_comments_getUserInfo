@@ -51,32 +51,56 @@
         ?>
         <div id='user-account_comment-<?php echo $k ?>' class="card border-primary mb-3">
           <div class="card-header bg-transparent border-primary">
+            <span id='user-comment_status-<?php echo $k ?>' class="card-text"><?php echo $comment->status ?></span>
 
-            <span id='user-comment_status-<?php echo $k ?>' class="card-text"><?php echo $comment->status ?>
-            </span>
-
-            <button id='comment-<?php echo $k ?>_button' name ='comment-<?php echo $k ?>_button' type="button" class="btn-change-status btn btn-primary"><span id='comment-<?php echo $k ?>_status-button-text'><?php
+            <button id='comment-<?php echo $k ?>_button' name ='comment-<?php echo $k ?>_button' type="button" class="btn-change-status btn btn-primary"><span id='comment-<?php echo $k ?>_status-button-text'>
+              <?php
                 if($comment->status_id == 'published') {
                   echo 'отменить публикацию';
                 } else {
                   echo 'опубликовать';
                 }
-            ?></span>
+              ?>
+            </span>
             </button>
+            <button class="btn btn-outline-primary" type="button" id='comment-<?php echo $k ?>_button-remove_comment' name ='comment-<?php echo $k ?>_button-remove_comment'>Удалить</button>
             <script>
-              $('#comment-<?php echo $k ?>_button').on('click', function() {
-                $.ajax({
-                  url: 'change-status.php',
-                  method: 'post',
-                  data: 'comment_id=<?php echo $k ?>&status_id=<?php echo $comment->status_id ?>&status=<?php echo $comment->status ?>',
-                  cache: false,
-                  success: function(strAnswer) {
-                    let arrAnswer = strAnswer.split('|');
-                    
-                    $('#user-comment_status-<?php echo $k ?>').text(arrAnswer[0]);
-                    $('#comment-<?php echo $k ?>_status-button-text').text(arrAnswer[1]);
-                  }
-                });
+              $(document).ready(function() {
+                function req_update() {
+                  $.ajax({
+                    url: 'change-status.php',
+                    method: 'post',
+                    data: 'comment_id=<?php echo $k ?>&status_id=<?php echo $comment->status_id ?>&status=<?php echo $comment->status ?>',
+                    cache: false,
+                    success: function(strAnswer) {
+                      let arrAnswer = strAnswer.split('|');
+                      
+                      $('#user-comment_status-<?php echo $k ?>').text(arrAnswer[0]);
+                      $('#comment-<?php echo $k ?>_status-button-text').text(arrAnswer[1]);
+                    }
+                  });
+                }
+
+                function req_remove() {
+                  $.ajax({
+                    url: 'remove-post.php',
+                    method: 'post',
+                    data: 'comment_id=<?php echo $k ?>',
+                    cache: false,
+                    success: function() {
+                      $('#user-account_comment-<?php echo $k ?>').remove();
+                    }
+                  })
+                }
+
+                $('#comment-<?php echo $k ?>_button').on('click', function() {
+                  req_update();
+                })
+
+                $('#comment-<?php echo $k ?>_button-remove_comment').on('click', function() {
+                  req_remove();
+                })
+                
               })
             </script>
 
@@ -98,11 +122,6 @@
       }
       ?>
       </div>
-      <!-- <?php
-      echo '<pre>';
-      print_r($arrComments);
-      echo '</pre>';
-      ?> -->
     </div>
   </div>
 </body>
