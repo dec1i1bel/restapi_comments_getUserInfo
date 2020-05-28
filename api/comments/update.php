@@ -3,9 +3,27 @@ include '../api/objects/comment.php';
 
 $arrUpd = json_decode($arrUpd);
 
-$updAction_dbComments = new Db();
-$updAction_dbCommentsConn = $dbComments->getConnection();
+if($arrUpd->status_id == 'published') {
+  $status_id = 'unpublished';
+  $status = 'не опубликовано';
+}
 
-$updAction_comment = new Comment($dbCommentsConn);
-$updAction_updateCommStatus = $comment->update($arrUpd['comment_id'], $arrUpd['strStatus_id']);
+$updAction_dbComments = new Db();
+$updAction_dbCommentsConn = $updAction_dbComments->getConnection();
+
+$updAction_comment = new Comment($updAction_dbCommentsConn);
+
+$updAction_updateCommStatus = $updAction_comment->update($arrUpd->comment_id, $status, $status_id);
+
+$updAction_readUpdatedStatus = $updAction_comment->readUpdatedStatus($arrUpd->comment_id);
+
+$statusData = $updAction_readUpdatedStatus->fetch();
+
+extract($statusData);
+
+$arrStatus = array(
+  'status' => $status,
+  'status_id' => $status_id
+);
+$arrStatus = json_encode($arrStatus);
 ?>

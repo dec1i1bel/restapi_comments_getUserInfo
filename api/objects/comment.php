@@ -21,20 +21,23 @@ class Comment extends Base{
     return $exec;
   }
   
-  public function update($comment_id, $strStatus, $strStatus_id) {
-    $sql = 'update table
-              set
-                status = :strStatus,
-                status_id = :strStatus_id,
-              where
-                id = :comment_id';
+  public function update($comment_id, $status, $status_id) {
+    $sql = 'update comments set status = "'.$status.'", status_id="'.$status_id.'" where id = :comment_id';
     $exec = $this->dbconn->prepare($sql);
-    $exec->bindValue(':strStatus', $strStatus, PDO::PARAM_STR);
-    $exec->bindValue(':strStatus_id', $strStatus_id, PDO::PARAM_STR);
+    // $exec->bindValue(':status', $status, PDO::PARAM_STR);
+    // $exec->bindValue(':status_id', $status_id, PDO::PARAM_STR);
     $exec->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
+    $exec->execute();
+
+    return $exec;
   }
 
-  public function delete() {
+  public function readUpdatedStatus($comment_id) {
+    $sql = 'select status, status_id from comments where id = :comment_id';
+    $ex = $this->dbconn->prepare($sql);
+    $ex->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
+    $ex->execute();
 
+    return $ex;
   }
 }

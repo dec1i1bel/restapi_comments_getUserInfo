@@ -1,9 +1,3 @@
-<?php
-include '../api/load-config.php';
-include '../api/comments/read.php';
-include '../api/users/read.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +11,10 @@ include '../api/users/read.php';
 </head>
 <body>
   <?php
+  include '../api/load-config.php';
+  include '../api/comments/read.php';
+  include '../api/users/read.php';
+
   $arrComments = json_decode($arrComments);
   $arrUsers = json_decode($arrUsers);
 
@@ -49,8 +47,9 @@ include '../api/users/read.php';
       <?php
       foreach($arrComments as $k => $comment) {
         $k++;
+        $k = strVal($k);
         ?>
-        <div id='user-account_comment-<?php echo strval($k) ?>' class="card border-primary mb-3">
+        <div id='user-account_comment-<?php echo $k ?>' class="card border-primary mb-3">
           <div class="card-header bg-transparent border-primary">
 
             <span id='user-comment_status-<?php echo $k ?>' class="card-text"><?php echo $comment->status ?>
@@ -68,7 +67,7 @@ include '../api/users/read.php';
                 $.ajax({
                   url: 'change-status.php',
                   method: 'post',
-                  data: 'comment_id=<?php echo $k ?>&strStatus_id=<?php echo $comment->status_id ?>',
+                  data: 'comment_id=<?php echo $k ?>&status_id=<?php echo $comment->status_id ?>&status=<?php echo $comment->status ?>',
                   cache: false,
                   success: function(strAnswer) {
                     let arrAnswer = strAnswer.split('|');
