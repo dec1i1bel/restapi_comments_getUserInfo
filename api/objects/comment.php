@@ -40,4 +40,13 @@ class Comment extends Base{
 
     return $ex;
   }
+
+  public function delete($comment_id) {
+    $sql = 'delete from comments where id = :comment_id';
+    $ex = $this->dbconn->prepare($sql);
+    $ex->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
+    $ex->execute();
+
+    return $ex;
+  }
 }
