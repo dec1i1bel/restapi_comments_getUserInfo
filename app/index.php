@@ -47,9 +47,7 @@
       <h2>Сообщения</h2>
       <div id="user-comments-container">
       <?php
-      foreach($arrComments as $k => $comment) {
-        $k++;
-        $k = strVal($k);
+      foreach($arrComments as $comment) {
         ?>
         <div id='user-account_comment-<?php echo $comment->id ?>' class="card mb-3">
           <div class="card-header bg-transparent">
