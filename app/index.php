@@ -21,7 +21,7 @@
   $user = $arrUsers[0];
   ?>
   <div class="container">
-    <div class="w-100">
+    <div id="user-account-userdata" class="w-100">
       <h1>Аккаунт пользователя</h1>
       <div class="card mb-3">
         <div class="row no-gutters">
@@ -42,6 +42,8 @@
           </div>
         </div>
       </div>
+    </div>
+    <div id="user-account-comments">
       <h2>Сообщения</h2>
       <div id="user-comments-container">
       <?php
@@ -63,7 +65,7 @@
               ?>
             </span>
             </button>
-            <button class="btn btn-outline-primary" type="button" id='comment-<?php echo $k ?>_button-remove_comment' name ='comment-<?php echo $comment->id ?>_button-remove_comment'>Удалить</button>
+            <button class="btn btn-outline-primary" type="button" id='comment-<?php echo $comment->id ?>_button-remove_comment' name ='comment-<?php echo $comment->id ?>_button-remove_comment'>Удалить</button>
             </div>
           <div class="card-body">
           <p class="card-text"><?php echo $comment->message ?></p>
@@ -81,7 +83,7 @@
             </span>
           </div>
           <script>
-              $(document).ready(function() {
+              // $(document).ready(function() {
                 function req_update() {
                   $.ajax({
                     url: 'change-status.php',
@@ -89,7 +91,7 @@
                     data: 'comment_id=<?php echo $comment->id ?>&status_id=<?php echo $comment->status_id ?>&status=<?php echo $comment->status ?>',
                     cache: false,
                     success: function(strAnswer) {
-                      let arrAnswer = strAnswer.split('|');
+                    let arrAnswer = strAnswer.split('|');
                       
                       $('#user-comment_status-<?php echo $comment->id ?>').text(arrAnswer[0]);
                       $('#comment-<?php echo $comment->id ?>_status-button-text').text(arrAnswer[1]);
@@ -118,16 +120,17 @@
                   req_remove();
                 })
                 
-              })
+              // })
             </script>
-        </div>
         </div>
         <?php
       }
       ?>
       </div>
       </div>
+      </div>
     </div>
+    
   </div>
 </body>
 </html>
