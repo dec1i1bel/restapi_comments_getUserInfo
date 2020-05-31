@@ -81,7 +81,7 @@
             </span>
           </div>
           <script>
-              // $(document).ready(function() {
+              $(document).ready(function() {
                 function req_update() {
                   $.ajax({
                     url: 'change-status.php',
@@ -118,7 +118,7 @@
                   req_remove();
                 })
                 
-              // })
+              })
             </script>
         </div>
         <?php
