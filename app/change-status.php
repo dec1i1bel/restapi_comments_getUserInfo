@@ -11,7 +11,10 @@ include '../api/comments/update.php';
 
 $arrStatus = json_decode($arrStatus);
 
-if($arrStatus->status_id == 'published') {
+$status = $arrStatus->status;
+$status_id = $arrStatus->status_id;
+
+if($status_id == 'published') {
   $buttonText = 'отменить публикацию';
   $pubDate = $arrStatus->publicationDate;
 } else {
@@ -19,5 +22,5 @@ if($arrStatus->status_id == 'published') {
   $pubDate = 'нет';
 };
 
-echo $arrStatus->status.'|'.$buttonText.'|'.$pubDate;
+echo $status.'|'.$buttonText.'|'.$pubDate.'|'.$status_id;
 ?>

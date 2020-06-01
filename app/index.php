@@ -49,7 +49,7 @@
       <?php
       foreach($arrComments as $comment) {
         ?>
-        <div id='user-account_comment-<?php echo $comment->id ?>' class="card mb-3">
+        <div id='user-account_comment-<?php echo $comment->id ?>' class="card mb-3 status-<?php echo $comment->status_id ?>">
           <div class="card-header bg-transparent">
             <span id='user-comment_status-<?php echo $comment->id ?>' class="card-text"><?php echo $comment->status ?></span>
 
@@ -81,45 +81,68 @@
             </span>
           </div>
           <script>
-              $(document).ready(function() {                
-                function req_update() {
-                  $.ajax({
-                    url: 'change-status.php',
-                    method: 'post',
-                    data: 'comment_id=<?php echo $comment->id ?>&status_id=<?php echo $comment->status_id; ?>&status=<?php echo $comment->status ?>',
-                    cache: false,
-                    success: function(strAnswer) {
-                      let arrAnswer = strAnswer.split('|');
-                      
-                      $('#user-comment_status-<?php echo $comment->id ?>').text(arrAnswer[0]);
-                      $('#comment-<?php echo $comment->id ?>_status-button-text').text(arrAnswer[1]);
-                      $('#comment-<?php echo $comment->id ?>_publication-date').text(arrAnswer[2]);
-                    }
-                  });
+            $(document).ready(function() {                
+              function req_update() {
+                let status = '';
+                let status_id = '';
+                let $userComment = $('#user-account_comment-<?php echo $comment->id ?>')
+
+                if($userComment.hasClass('status-published')) {
+                  status = 'опубликовано';
+                  status_id = 'published';
                 }
 
-                function req_delete() {
-                  $.ajax({
-                    url: 'remove-post.php',
-                    method: 'post',
-                    data: 'comment_id=<?php echo $comment->id ?>',
-                    cache: false,
-                    success: function() {
-                      $('#user-account_comment-<?php echo $comment->id ?>').remove();
-                    }
-                  })
+                if($userComment.hasClass('status-unpublished')) {
+                  status = 'не опубликовано';
+                  status_id = 'unpublished';
                 }
 
-                $('#comment-<?php echo $comment->id ?>_button').on('click', function() {
-                  req_update();
-                })
+                $.ajax({
+                  url: 'change-status.php',
+                  method: 'post',
+                  data: 'comment_id=<?php echo $comment->id ?>&status_id='+status_id+'&status='+status,
+                  cache: false,
+                  success: function(strAnswer) {
+                    let arrAnswer = strAnswer.split('|');
 
-                $('#comment-<?php echo $comment->id ?>_button-remove_comment').on('click', function() {
-                  req_delete();
+                    let updStatus = arrAnswer[0];
+                    let btnText = arrAnswer[1];
+                    let pubDate = arrAnswer[2];
+                    let updStatus_id = arrAnswer[3];
+                    
+                    $('#user-comment_status-<?php echo $comment->id ?>').text(updStatus);
+                    $('#comment-<?php echo $comment->id ?>_status-button-text').text(btnText);
+                    $('#comment-<?php echo $comment->id ?>_publication-date').text(pubDate);
+
+                    $('#user-account_comment-<?php echo $comment->id ?>')
+                      .removeClass('status-'+status_id)
+                      .addClass('status-'+updStatus_id);
+                  }
+                });
+              }
+
+              function req_delete() {
+                $.ajax({
+                  url: 'remove-post.php',
+                  method: 'post',
+                  data: 'comment_id=<?php echo $comment->id ?>',
+                  cache: false,
+                  success: function() {
+                    $('#user-account_comment-<?php echo $comment->id ?>').remove();
+                  }
                 })
-                
+              }
+
+              $('#comment-<?php echo $comment->id ?>_button').on('click', function() {
+                req_update();
               })
-            </script>
+
+              $('#comment-<?php echo $comment->id ?>_button-remove_comment').on('click', function() {
+                req_delete();
+              })
+              
+            })
+          </script>
         </div>
         <?php
       }
