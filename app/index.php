@@ -82,11 +82,24 @@
           </div>
           <script>
               $(document).ready(function() {
+                
                 function req_update() {
+                  <?php
+                    $stData = $comment->getStatus($comment_id);
+                    $stStatus = 
+                  ?>
                   $.ajax({
                     url: 'change-status.php',
                     method: 'post',
-                    data: 'comment_id=<?php echo $comment->id ?>&status_id=<?php echo $comment->status_id ?>&status=<?php echo $comment->status ?>',
+                    data: 'comment_id=<?php
+                      echo $comment->id
+                    ?>
+                    &status_id=<?php
+                      echo $comment->status_id;
+                    ?>
+                    &status=<?php
+                      echo $comment->status
+                    ?>',
                     cache: false,
                     success: function(strAnswer) {
                     let arrAnswer = strAnswer.split('|');
@@ -98,7 +111,7 @@
                   });
                 }
 
-                function req_remove() {
+                function req_delete() {
                   $.ajax({
                     url: 'remove-post.php',
                     method: 'post',
@@ -115,7 +128,7 @@
                 })
 
                 $('#comment-<?php echo $comment->id ?>_button-remove_comment').on('click', function() {
-                  req_remove();
+                  req_delete();
                 })
                 
               })

@@ -22,7 +22,7 @@ class Comment extends Base{
   }
   
   public function update($comment_id, $status, $status_id) {
-    $sql = 'update comments set status = "'.$status.'", status_id="'.$status_id.'" where id = :comment_id';
+    $sql = 'update '.$this->dbtable.' set status = "'.$status.'", status_id="'.$status_id.'" where id = :comment_id';
     $exec = $this->dbconn->prepare($sql);
     $exec->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
     $exec->execute();
@@ -31,7 +31,7 @@ class Comment extends Base{
   }
 
   public function readUpdatedStatus($comment_id) {
-    $sql = 'select status, status_id, publicationDate from comments where id = :comment_id';
+    $sql = 'select status, status_id, publicationDate from '.$this->dbtable.' where id = :comment_id';
     $ex = $this->dbconn->prepare($sql);
     $ex->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
     $ex->execute();
@@ -40,11 +40,22 @@ class Comment extends Base{
   }
   
   public function delete($comment_id) {
-    $sql = 'delete from comments where id = :comment_id';
+    $sql = 'delete from '.$this->dbtable.' where id = :comment_id';
     $ex = $this->dbconn->prepare($sql);
     $ex->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
     $ex->execute();
     
     return $ex;
+  }
+  
+  public function jsonEncodeStatus($comment_id) {
+    $statusData = $this->readUpdatedStatus($comment_id);
+    extract($statusData->fetch());
+    $arr = array(
+      'status' => $status,
+      'status_id' => $status_id,
+      'publicationDate' => $publicationDate
+    )
+    return(json_encode($arr));
   }
 }
