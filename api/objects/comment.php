@@ -55,7 +55,7 @@ class Comment extends Base{
       'status' => $status,
       'status_id' => $status_id,
       'publicationDate' => $publicationDate
-    )
+    );
     return(json_encode($arr));
   }
 }
