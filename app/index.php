@@ -81,28 +81,15 @@
             </span>
           </div>
           <script>
-              $(document).ready(function() {
-                
+              $(document).ready(function() {                
                 function req_update() {
-                  <?php
-                    $stData = $comment->getStatus($comment_id);
-                    $stStatus = 
-                  ?>
                   $.ajax({
                     url: 'change-status.php',
                     method: 'post',
-                    data: 'comment_id=<?php
-                      echo $comment->id
-                    ?>
-                    &status_id=<?php
-                      echo $comment->status_id;
-                    ?>
-                    &status=<?php
-                      echo $comment->status
-                    ?>',
+                    data: 'comment_id=<?php echo $comment->id ?>&status_id=<?php echo $comment->status_id; ?>&status=<?php echo $comment->status ?>',
                     cache: false,
                     success: function(strAnswer) {
-                    let arrAnswer = strAnswer.split('|');
+                      let arrAnswer = strAnswer.split('|');
                       
                       $('#user-comment_status-<?php echo $comment->id ?>').text(arrAnswer[0]);
                       $('#comment-<?php echo $comment->id ?>_status-button-text').text(arrAnswer[1]);
