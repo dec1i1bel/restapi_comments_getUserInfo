@@ -1,6 +1,6 @@
 <?php
 class Db {
-  private $dsn = 'mysql:host=127.0.0.1;dbname=restapi_userinfo_comments;charset=UTF8';
+  private $dsn = 'mysql:host=127.0.0.1:3306;dbname=restapi_userinfo_comments;charset=UTF8';
   private $username = 'root';
   private $password = '';
   public $conn;
