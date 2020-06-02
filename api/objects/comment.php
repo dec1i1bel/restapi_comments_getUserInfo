@@ -1,5 +1,4 @@
 <?php
-
 class Comment extends Base{
   private $dbtable = 'comments';
   
